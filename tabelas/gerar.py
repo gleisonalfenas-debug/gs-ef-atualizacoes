@@ -30,12 +30,20 @@ try:
     base = json.load(open("tabelas/base_ncm_anexos.json", encoding="utf-8"))
     for cod, v in base["c"].items():
         if cod in cc: cc[cod][3] = v[3]
-    ncm = {n: [x for x in l if x in cc] for n, l in base["n"].items()}; ncm = {n: l for n, l in ncm.items() if l}
+    # Códigos que só valem conforme QUEM compra (órgão público, produtor rural): nunca são a sugestão principal.
+    ESPEC = {"200038": "venda de insumo agropecuário/aquícola (Anexo IX) para produção", "200005": "venda a órgão público ou entidade de saúde imune",
+             "200043": "venda à administração pública (soberania e segurança)", "200011": "venda a órgão público ou entidade de saúde imune",
+             "200008": "venda a órgão público ou entidade imune"}
+    for cod, v in cc.items():
+        d = v[1].lower()
+        if cod not in ESPEC and ("administração pública" in d or "órgãos da" in d or "adquirid" in d and "imune" in d): ESPEC[cod] = "venda a órgão público ou entidade imune"
+    ordem = lambda x: (x in ESPEC, -cc[x][2])          # gerais primeiro; maior redução antes
+    ncm = {n: sorted([x for x in l if x in cc], key=ordem) for n, l in base["n"].items()}; ncm = {n: l for n, l in ncm.items() if l}
     fora = sorted({x for l in base["n"].values() for x in l} - set(cc))
     log("cClassTrib válidos na NF-e hoje:", len(cc), "| NCMs com sugestão:", len(ncm), "| códigos da base que saíram da tabela oficial:", fora)
     if len(cc) >= 60 and "000001" in cc and len(ncm) >= 1000:
         json.dump({"fonte": f"Calculadora de Tributos oficial (base {versao.get('versaoDb')} de {versao.get('dataVersaoDb')}) e anexos da LC 214/2025",
-                   "atualizado_em": hoje, "c": cc, "n": ncm}, open(f"{saida}/rtc_ncm.json", "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+                   "atualizado_em": hoje, "c": cc, "n": ncm, "e": {k: v for k, v in ESPEC.items() if k in cc}}, open(f"{saida}/rtc_ncm.json", "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
         log("rtc_ncm.json GRAVADO")
     else: log("rtc_ncm.json NÃO gravado (dados incompletos) — mantido o anterior")
 except Exception: log("ERRO cClassTrib:", traceback.format_exc()[-1200:])

@@ -1,9 +1,0 @@
-200 476 https://consumo.tributos.gov.br/servico/calcular-tributos-consumo/api/calculadora/dados-abertos/ncm?ncm=15079011&data=2026-11-28
-   b'{"capitulo":"Gorduras e \xc3\xb3leos animais, vegetais ou de origem microbiana e produtos da sua dissocia\xc3\xa7\xc3\xa3o; gorduras aliment\xc3\xadcias elaboradas; ceras de origem animal ou vegetal.","item":"Refinado","posicao":"\xc3\x93leo de soja e respectivas fra\xc3\xa7\xc3\xb5es, mesmo refinados, mas n\xc3\xa3o quimicamente modificados.","subitem":"Em recipientes com capacidade inferior ou igual a 5l","subposicao":"Outros","temAliquotaAdRem":false,"temAliquotaAdValorem":false,"tributadoPeloImpostoSeletivo":false}'
-ERRO HTTP Error 404: Not Found https://consumo.tributos.gov.br/servico/calcular-tributos-consumo/api/calculadora/dados-abertos/ncm/15079011?data=2026-11-28
-ERRO HTTP Error 404: Not Found https://consumo.tributos.gov.br/servico/calcular-tributos-consumo/api/calculadora/dados-abertos/nomenclaturas?data=2026-11-28
-ERRO HTTP Error 404: Not Found https://consumo.tributos.gov.br/servico/calcular-tributos-consumo/api/calculadora/dados-abertos/anexos?data=2026-11-28
-ERRO HTTP Error 404: Not Found https://consumo.tributos.gov.br/servico/calcular-tributos-consumo/api/calculadora/dados-abertos/classificacoes-tributarias/ncm/15079011?data=2026-11-28
-ERRO HTTP Error 404: Not Found https://consumo.tributos.gov.br/servico/calcular-tributos-consumo/api/v3/api-docs
-ERRO HTTP Error 404: Not Found https://consumo.tributos.gov.br/servico/calcular-tributos-consumo/api/calculadora/v3/api-docs
-ERRO HTTP Error 404: Not Found https://consumo.tributos.gov.br/servico/calcular-tributos-consumo/api/v2/api-docs
