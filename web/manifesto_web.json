@@ -1,9 +1,9 @@
 {
   "payload": {
     "product": "GLEISON-EMISSOR",
-    "version": "1.0.13",
-    "url": "https://github.com/gleisonalfenas-debug/gs-ef-atualizacoes/raw/main/web/NFEProWeb_1.0.13.zip",
-    "sha256": "2df21d1ac1498ab3085b8cca7f58bd80ee0853cd5cde9453d350d182494d8130"
+    "version": "1.0.14",
+    "url": "https://github.com/gleisonalfenas-debug/gs-ef-atualizacoes/raw/main/web/NFEProWeb_1.0.14.zip",
+    "sha256": "8c9747205403d4212de1549fc42eb7f32e06bcb95e89e36148154cca6e3dc3b5"
   },
-  "signature": "_71Akp85nY0ZhlvoY6G-7-mswfN1N04LR2AZe6pJ1YZEdWk8pZboCZcciG4csewkyYzV5qE6_kI_YdETOc0hAg"
+  "signature": "KDEO_pGHRjtotyFhvLYrdGTu4O7cIrtNR6znH_wRCgkN3w1SFehw3jMTz73UrHqEXel7nSXO5a_mNU0QF7LvCA"
 }
