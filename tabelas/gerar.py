@@ -85,4 +85,22 @@ try:
         log("ncm.json GRAVADO")
     else: log("ncm.json NÃO gravado — mantido o anterior")
 except Exception: log("ERRO NCM:", traceback.format_exc()[-1200:])
+# ---------------- ST em MG: MVA por CEST (RICMS/MG 2023, Anexo VII, Parte 2), base aberta icms-st-dados (MIT)
+try:
+    rows = list(csv.DictReader(io.StringIO(baixar("https://raw.githubusercontent.com/thiagogardev/icms-st-dados/main/dados/estados/MG/itens.csv").decode("utf-8"))))
+    st, porncm = {}, collections.defaultdict(list)
+    for r in rows:
+        cest = re.sub(r"\D", "", r.get("cest", ""))
+        if len(cest) != 7: continue
+        mva = r.get("mva_original", "").strip(); txt = (r.get("mva_texto") or "").strip()
+        st[cest] = [float(mva) if re.fullmatch(r"[\d.]+", mva) else None, txt[:80], r.get("descricao", "")[:160], r.get("item", ""), r.get("st_interna", "") == "sim", r.get("segmento", "")[:40]]
+        for n in (r.get("ncms") or "").split(";"):
+            n = re.sub(r"\D", "", n)
+            if n and cest not in porncm[n]: porncm[n].append(cest)
+    log("ST MG:", len(st), "CEST,", sum(1 for v in st.values() if v[0] is not None), "com MVA numérica")
+    if len(st) >= 800:
+        json.dump({"fonte": "RICMS/MG 2023, Anexo VII, Parte 2 (base icms-st-dados)", "atualizado_em": hoje, "c": st, "n": porncm}, open(f"{saida}/st_mg.json", "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+        log("st_mg.json GRAVADO")
+    else: log("st_mg.json NÃO gravado — mantido o anterior")
+except Exception: log("ERRO ST MG:", traceback.format_exc()[-1200:])
 open(f"{saida}/diagnostico.txt", "w", encoding="utf-8").write(hoje + "\n" + "\n".join(diag) + "\n")
