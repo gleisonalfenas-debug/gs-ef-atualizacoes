@@ -61,4 +61,28 @@ try:
         log("cest_ncm.json GRAVADO")
     else: log("cest_ncm.json NÃO gravado — mantido o anterior")
 except Exception: log("ERRO CEST:", traceback.format_exc()[-1200:])
+# ---------------- NCM (tabela oficial da Receita, descrição completa com os níveis de cima)
+try:
+    j = json.loads(baixar("https://portalunico.siscomex.gov.br/classif/api/publico/nomenclatura/download/json"))
+    lst = j.get("Nomenclaturas") or j.get("nomenclaturas") or []
+    log("NCM oficial:", len(lst), "registros; chaves:", list(lst[0].keys()) if lst else "-", "| ato:", j.get("Ato_Vigente") or j.get("ato_vigente") or "")
+    desc = {}
+    for r in lst:
+        cod = re.sub(r"\D", "", str(r.get("Codigo") or r.get("codigo") or "")); d = re.sub(r"<[^>]+>", "", str(r.get("Descricao") or r.get("descricao") or "")).strip()
+        fim = str(r.get("Data_Fim") or r.get("data_fim") or "")
+        if cod and not (fim and fim[:10].count("/") == 2 and fim[6:10] + fim[3:5] + fim[:2] < hoje.replace("-", "")): desc[cod] = d
+    limpa = lambda t: re.sub(r"^[-–\s]+", "", t).rstrip(":").strip()
+    ncm = {}
+    for cod in desc:
+        if len(cod) != 8: continue
+        partes = [limpa(desc[cod[:n]]) for n in (4, 5, 6, 7) if cod[:n] in desc and limpa(desc[cod[:n]])]
+        ult = limpa(desc[cod])
+        if ult and (not partes or ult != partes[-1]): partes.append(ult)
+        ncm[cod] = " › ".join(partes)[:300]
+    log("NCM de 8 dígitos:", len(ncm), "exemplo 15079011:", ncm.get("15079011", "-"))
+    if len(ncm) >= 9000:
+        json.dump({"fonte": "Receita Federal - tabela NCM vigente (Classif)", "atualizado_em": hoje, "n": ncm}, open(f"{saida}/ncm.json", "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+        log("ncm.json GRAVADO")
+    else: log("ncm.json NÃO gravado — mantido o anterior")
+except Exception: log("ERRO NCM:", traceback.format_exc()[-1200:])
 open(f"{saida}/diagnostico.txt", "w", encoding="utf-8").write(hoje + "\n" + "\n".join(diag) + "\n")
