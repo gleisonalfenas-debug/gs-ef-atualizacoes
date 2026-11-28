@@ -8,3 +8,5 @@ cest_ncm.json GRAVADO
 NCM oficial: 15157 registros; chaves: ['Codigo', 'Descricao', 'Data_Inicio', 'Data_Fim', 'Tipo_Ato_Ini', 'Numero_Ato_Ini', 'Ano_Ato_Ini'] | ato: 
 NCM de 8 dígitos: 10516 exemplo 15079011: Óleo de soja e respectivas frações, mesmo refinados, mas não quimicamente modificados. › Outros › Refinado › Em recipientes com capacidade inferior ou igual a 5 l
 ncm.json GRAVADO
+ST MG: 1032 CEST, 948 com MVA numérica
+st_mg.json GRAVADO
