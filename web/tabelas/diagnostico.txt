@@ -5,3 +5,6 @@ cClassTrib válidos na NF-e hoje: 104 | NCMs com sugestão: 1702 | códigos da b
 rtc_ncm.json GRAVADO
 CEST: 1010 | prefixos NCM: 798
 cest_ncm.json GRAVADO
+NCM oficial: 15157 registros; chaves: ['Codigo', 'Descricao', 'Data_Inicio', 'Data_Fim', 'Tipo_Ato_Ini', 'Numero_Ato_Ini', 'Ano_Ato_Ini'] | ato: 
+NCM de 8 dígitos: 10516 exemplo 15079011: Óleo de soja e respectivas frações, mesmo refinados, mas não quimicamente modificados. › Outros › Refinado › Em recipientes com capacidade inferior ou igual a 5 l
+ncm.json GRAVADO
